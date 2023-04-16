@@ -4,7 +4,8 @@
  * env_get_key - to get  the value of the environment variable
  * @key: environment variable of interest
  * @data: struct of the program's data
- * Return: pointer back to the value of the variable or NULL if it does not exist
+ * Return: pointer back to the value of the variable
+ * or NULL if it does not exist
  */
 char *env_get_key(char *key, data_of_program *data)
 {

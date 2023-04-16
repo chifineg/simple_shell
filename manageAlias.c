@@ -2,7 +2,7 @@
 
 /**
  * print_alias - addition, removal and displaying of aliases
- * @data: program data struct 
+ * @data: program data struct
  * @alias: alias names to be displayed
  * Return: 0 when success, other number when argumens is declared
  */
@@ -39,7 +39,7 @@ int print_alias(data_of_program *data, char *alias)
 
 /**
  * get_alias - addition, removal and showing aliases
- * @data: program data struct 
+ * @data: program data struct
  * @name: alias requested name.
  * Return: 0 when success, or other number when argument
  */

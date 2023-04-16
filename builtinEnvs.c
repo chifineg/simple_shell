@@ -47,7 +47,7 @@ int builtin_env(data_of_program *data)
 
 /**
  * builtin_set_env - ..
- * @data: program data struct 
+ * @data: program data struct
  * Return: 0 when success, any other number when arguments is decleared
  */
 int builtin_set_env(data_of_program *data)
