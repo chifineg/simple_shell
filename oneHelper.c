@@ -39,7 +39,7 @@ void free_array_of_pointers(char **array)
 
 	if (array != NULL)
 	{
-		for (k = 0; array[k]; i++)
+		for (k = 0; array[k]; k++)
 			free(array[k]);
 
 		free(array);

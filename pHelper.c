@@ -43,7 +43,7 @@ char *str_duplicate(char *string)
 	}
 	for (k = 0; k < length ; k++)
 	{
-		result[k] = strin [k];
+		result[k] = string[k];
 	}
 
 	return (result);
