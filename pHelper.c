@@ -1,154 +1,70 @@
 #include "shell.h"
 
 /**
- * str_length - function to returns the length of a string.
- * @string: pointer to string.
- * Return: length of string.
+ * _print -function to  writes a array of chars in the standar output
+ * @string: pointer to the array of chars
+ * Return: the number of bytes writed or .
+ * On error, -1 is returned, and errno is set appropriately.
  */
-int str_length(char *string)
+int _print(char *string)
 {
-	int length = 0;
-
-	if (string == NULL)
-		return (0);
-
-	while (string[length++] != '\0')
-	{
-	}
-	return (--length);
+	return (write(STDOUT_FILENO, string, str_length(string)));
+}
+/**
+ * _printe - function to write a array of chars in the standar error
+ * @string: pointer to the array of chars
+ * Return: the number of bytes writed or.
+ * On error, -1 is returned, and errno is set appropriately.
+ */
+int _printe(char *string)
+{
+	return (write(STDERR_FILENO, string, str_length(string)));
 }
 
 /**
- * str_duplicate - programe to duplicate  string
- * @string: String to be copied
- * Return: pointer to the array
+ * _print_error - function that writes an array of chars in the standart error
+ * @data: a pointer to the program's data'
+ * @errorcode: the error code to print
+ * Return: the number of bytes writed or .
+ * On error, -1 is returned, and errno is set appropriately.
  */
-char *str_duplicate(char *string)
+int _print_error(int errorcode, data_of_program *data)
 {
-	char *result;
-	int length, k;
+	char n_as_string[10] = {'\0'};
 
-	if (string == NULL)
-		return (NULL);
+	long_to_string((long) data->exec_counter, n_as_string, 10);
 
-	length = str_length(string) + 1;
-
-	result = malloc(sizeof(char) * length);
-
-	if (result == NULL)
+	if (errorcode == 2 || errorcode == 3)
 	{
-		errno = ENOMEM;
-		perror("Error");
-		return (NULL);
+		_printe(data->program_name);
+		_printe(": ");
+		_printe(n_as_string);
+		_printe(": ");
+		_printe(data->tokens[0]);
+		if (errorcode == 2)
+			_printe(": Illegal number: ");
+		else
+			_printe(": can't cd to ");
+		_printe(data->tokens[1]);
+		_printe("\n");
 	}
-	for (k = 0; k < length ; k++)
+	else if (errorcode == 127)
 	{
-		result[k] = string[k];
+		_printe(data->program_name);
+		_printe(": ");
+		_printe(n_as_string);
+		_printe(": ");
+		_printe(data->command_name);
+		_printe(": not found\n");
 	}
-
-	return (result);
-}
-
-/**
- * str_compare - function Compare two strings
- * @string1: String one, or the shorter
- * @string2: String two, or the longer
- * @number: the number of characters to be compared, 0 if infinite
- * Return: 1 if the strings are equals,0 if the strings are different
- */
-int str_compare(char *string1, char *string2, int number)
-{
-	int iterator;
-
-	if (string1 == NULL && string2 == NULL)
-		return (1);
-
-	if (string1 == NULL || string2 == NULL)
-		return (0);
-
-	if (number == 0) /* infinite longitud */
+	else if (errorcode == 126)
 	{
-		if (str_length(string1) != str_length(string2))
-			return (0);
-		for (iterator = 0; string1[iterator]; iterator++)
-		{
-			if (string1[iterator] != string2[iterator])
-				return (0);
-		}
-		return (1);
+		_printe(data->program_name);
+		_printe(": ");
+		_printe(n_as_string);
+		_printe(": ");
+		_printe(data->command_name);
+		_printe(": Permission denied\n");
 	}
-	else /* if there is a number of chars to be compared */
-	{
-		for (iterator = 0; iterator < number ; iterator++)
-		{
-			if (string1[iterator] != string2[iterator])
-			return (0);
-		}
-		return (1);
-	}
-}
-
-/**
- * str_concat - function to concatenates two strings.
- * @string1: String to be concatenated
- * @string2: String to be concatenated
- *
- * Return: pointer to the array
- */
-char *str_concat(char *string1, char *string2)
-{
-	char *result;
-	int length1 = 0, length2 = 0;
-
-	if (string1 == NULL)
-		string1 = "";
-	length1 = str_length(string1);
-
-	if (string2 == NULL)
-		string2 = "";
-	length2 = str_length(string2);
-
-	result = malloc(sizeof(char) * (length1 + length2 + 1));
-	if (result == NULL)
-	{
-		errno = ENOMEM;
-		perror("Error");
-		return (NULL);
-	}
-
-	/* copy of string1 */
-	for (length1 = 0; string1[length1] != '\0'; length1++)
-		result[length1] = string1[length1];
-	free(string1);
-
-	/* copy of string2 */
-	for (length2 = 0; string2[length2] != '\0'; length2++)
-	{
-		result[length1] = string2[length2];
-		length1++;
-	}
-
-	result[length1] = '\0';
-	return (result);
-}
-
-
-/**
- * str_reverse - it  reverses  string.
- *
- * @string: pointer to string.
- * Return: void.
- */
-void str_reverse(char *string)
-{
-
-	int x = 0, length = str_length(string) - 1;
-	char hold;
-
-	while (x < length)
-	{
-		hold = string[x];
-		string[x++] = string[length];
-		string[length--] = hold;
-	}
+	return (0);
 }
