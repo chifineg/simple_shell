@@ -107,6 +107,6 @@ int buffer_add(char *buffer, char *str_to_add)
 	{
 		buffer[len + x] = str_to_add[x];
 	}
-	buffer[length + x] = '\0';
+	buffer[len + x] = '\0';
 	return (len + x);
 }
