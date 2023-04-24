@@ -243,5 +243,4 @@ char *get_alias(data_of_program *data, char *alias);
 /* set the alias name */
 int set_alias(char *alias_string, data_of_program *data);
 
-
-#endif /* SHELL_H */
+#endif
