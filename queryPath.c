@@ -77,7 +77,7 @@ char **tokenize_path(data_of_program *data)
 			dirCount++;
 	}
 
-	tokenz = malloc(sizeof(char *) * dirCounter);
+	tokenz = malloc(sizeof(char *) * dirCount);
 
 	x = 0;
 	tokenz[x] = str_duplicate(_strtok(PATH, ":"));
