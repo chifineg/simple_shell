@@ -93,7 +93,8 @@ char **tokenize_path(data_of_program *data)
 }
 
 /**
- * check_file - function to check if a file exists, checks if it is not a directory and
+ * check_file - function to check if a file exists,
+ * checks if it is not a directory and
  * if it has excecution permisions.
  * @full_path: points to file's full name
  * Return: 0 when success, or error code when error.

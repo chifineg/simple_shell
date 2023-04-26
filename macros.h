@@ -1,7 +1,7 @@
 #ifndef HELPERS_H
 #define HELPERS_H
 
-#define PROMPT_MSG "$" 
+#define PROMPT_MSG "$"
 
 #define UNUSED __attribute__((unused))
 
